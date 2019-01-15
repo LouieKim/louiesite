@@ -2,22 +2,16 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ec2-user
-    overwrite: true
-permissions:
-  - object: /home/ec2-use/scripts
-    pattern: "*.sh"
-    owner: root
-    group: root
-    mode: 755
-    type:
-      - file
+    destination: /home/ec2-user/
 hooks:
   BeforeInstall:
+    - location: scripts/install_dependencies
+      timeout: 300
+      runas: root
     - location: scripts/start_server
-      timeout: 100
+      timeout: 300
       runas: root
   ApplicationStop:
     - location: scripts/stop_server
-      timeout: 100
+      timeout: 300
       runas: root
